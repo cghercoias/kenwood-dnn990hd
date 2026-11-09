@@ -37,6 +37,12 @@ from a photograph:
 contact in turn: exactly one reads 0 Ω, and that is pin 1. Count 1-2-3-4 along the housing from there.
 No photograph can tell you which physical end is pin 1, and getting it wrong puts D+ on D−.
 
+![CN902 close-up](../images/photo-cn902-detail.jpg)
+
+*The housing from above: four contacts in a single row, with `CN902` silkscreened immediately to its
+right. The second mark beside each contact is the pin's entry chamfer, not a second row — it is easy
+to miscount this one from a photograph, which is exactly why the pin order above came from a meter.*
+
 ## The cable
 
 The one that worked here is a **scavenged USB-A charge lead**: cut the small end off, keep the four

@@ -97,6 +97,11 @@ The selector is a **pair of pads beside the TP764 silkscreen**, between the TP76
 test-point pads, just above CN903. Of the two 2-pad footprints side by side, the **left one is bare**
 and the right one has a component fitted — the bare pair is the strap.
 
+![The TP764 pads](../images/photo-fwdn-strap.jpg)
+
+*`TP764` and the pad pair, straight off the board. The red `1` / `2` marks were drawn on the photo
+afterwards — nothing on the board is labelled, which is why the figure above exists.*
+
 - **The pads are too small to solder.** A lifted pad ends the project; do not put an iron on them.
 - **Find the grounded pad first**, powered off: one pad reads ~0 Ω to chassis, the other runs to the
   SoC's boot pin. Only the signal pad has to reach ground.
@@ -154,6 +159,12 @@ cross-check that the downloader and Android are the same box.
 image, the backlight itself stays dark. Fans run. That dark panel is the discriminator: a *lit*
 backlight with a black picture is a normal power state with a dead display path, which is a completely
 different fault ([docs/02](02-panel-dark-fix.md)).
+
+![A lit backlight, no image](../images/photo-panel-backlight.jpg)
+
+*What a lit backlight with no picture looks like — backlight on, nothing drawn. This is **not** what
+boot-ROM mode looks like; in FWDN the panel is dark because the backlight is off. If you can see this
+glow, the strap did not take and the SoC booted from NAND.*
 
 **On the PC**, by USB identity:
 

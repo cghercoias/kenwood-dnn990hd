@@ -22,6 +22,19 @@ something that was done to it.
 Build date 2018-10-03, build host `Prominence` — this is a late engineering build for a 2013
 product, and it is firmware **1.8.0**, the last release Kenwood ever made for the DNN990HD.
 
+![The unit's own label](../images/photo-label.jpg)
+
+*The rear label: `DNN990HD`, `12 V 6 A NEGATIVE GND`, serial **<serial>** — the same number
+`configuration.db` reports as `serial`, which is how the unit on this bench was tied to the firmware
+read out of it.*
+
+![The NAND on the processor module](../images/photo-nand-chip.jpg)
+
+*The memory itself: `TH58NVG4S0FTAK0`, 2 GB SLC NAND in TSOP-48, on the processor module that carries
+the SoC and its DDR. If your board does not carry this part, identify what it does carry before
+following [docs/10](10-nand-backup-with-fwdn.md) — a different memory type means a different backup
+route.*
+
 ## USB identities
 
 From `init.tcc8800.usb.rc` in the ramdisk:

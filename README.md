@@ -104,6 +104,7 @@ docs/07-data-persistence-and-bootloop.md
 docs/08-cn902-port-and-cable.md       the one port that matters: pinout, the cable, the 1 kOhm story
 docs/09-fwdn-mode.md                  driver, tool, strap pads, the 19-second boot-ROM window
 docs/10-nand-backup-with-fwdn.md      reading the chip through FWDN, and why never to write with it
+docs/11-documents-and-manuals.md      the PDFs worth having (part numbers + why they are not shipped)
 patches/vmute                         the 275-byte replacement script
 tools/                                Windows .bat helpers + the Python figure/preview generators
 tools/vendor/                         Telechips FWDN tool + VTC USB driver (checksummed) and the .fai format
