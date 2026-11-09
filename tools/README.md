@@ -41,3 +41,26 @@ python make_figures.py
 
 Pure PIL, no data files, Segoe UI from `C:\Windows\Fonts`. Every number drawn in the figures is also
 in the markdown next to them — the figures are for orientation, the text is the reference.
+
+### `make_figures_fwdn.py` — the connector / strap / timing figures
+
+```bash
+python make_figures_fwdn.py --src "S:/path/to/photos"
+```
+
+Draws `fig05`–`fig07` and writes the two cropped photos (`photo-cn902-connector.jpg`,
+`photo-fwdn-strap.jpg`) that those figures are built from. It needs the two original board photographs
+(`ANNOTATED_CN902_front.jpg` and `FWDN_TP764.png`) in `--src`; without them the figures cannot be
+rebuilt, so the committed PNGs are the reference copies.
+
+### `make_preview.py` — offline browse of every document
+
+```bash
+python make_preview.py      # writes ../preview.html, opens with any browser
+```
+
+## vendor/
+
+Telechips' FWDN tool and VTC USB driver, checksummed, plus the reverse-engineered `.fai`/`.dum`
+container format. See [`vendor/README.md`](vendor/README.md) — it is the page to read before you
+hand-build anything the downloader will accept.

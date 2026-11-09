@@ -24,6 +24,7 @@ instructions, our own scripts, and our own measurements. See [Legal](#legal).
 | Front panel keys | Working (MCU → `KWApplication`, not Linux input) |
 | EJECT | Inert **by design** — no disc mechanism fitted; the key does emit events |
 | `/data` persistence | **Open** — unit lands in initial setup on every boot. See [docs/07](docs/07-data-persistence-and-bootloop.md) |
+| FWDN (boot-ROM) mode | **Working** — entry procedure, driver and tool in [docs/09](docs/09-fwdn-mode.md); chip dump through it in [docs/10](docs/10-nand-backup-with-fwdn.md) |
 | Garmin navigation | **Unrecoverable without the original SD card** — no map data exists on NAND or in the firmware package |
 
 ---
@@ -39,8 +40,10 @@ instructions, our own scripts, and our own measurements. See [Legal](#legal).
    never complete. It only risks making things worse.
 4. **Only one port can write**: CN902, the SoC USB device port on the main board. It is internal —
    reachable with the cover off, not with the unit assembled. FWDN (`140E:B068`) and `adb` both use it.
-5. **FWDN mode needs the boot-strap pads bridged** (tweezers work). On this board the pads sit
-   *under the heatsink*.
+5. **FWDN mode needs the boot-strap pads shorted at power-up** (tweezers or a needle work; 1 kΩ first
+   as a safe test). On this board the pads sit *under the heatsink*. Full procedure in
+   [docs/09](docs/09-fwdn-mode.md) — and **never feed 5 V into CN902 pin 4**, it is a chassis bond
+   ([docs/08](docs/08-cn902-port-and-cable.md)).
 6. **A firmware update restores the stock `vmute`** and re-kills the panel. Re-apply
    [the patch](patches/vmute) afterwards.
 
@@ -98,10 +101,14 @@ docs/04-vendor-update-attempt.md    running the official 1.8.0 updater (what it 
 docs/05-firmware-analysis.md        full teardown of update.kw and the boot image (phase 1 report)
 docs/06-partitions-and-boot-image.md
 docs/07-data-persistence-and-bootloop.md
-patches/vmute                       the 275-byte replacement script
-tools/                              Windows .bat helpers + the Python figure generator
-evidence/                           framebuffer captures from the unit
-images/                             annotated diagrams (regenerate with tools/make_figures.py)
+docs/08-cn902-port-and-cable.md       the one port that matters: pinout, the cable, the 1 kOhm story
+docs/09-fwdn-mode.md                  driver, tool, strap pads, the 19-second boot-ROM window
+docs/10-nand-backup-with-fwdn.md      reading the chip through FWDN, and why never to write with it
+patches/vmute                         the 275-byte replacement script
+tools/                                Windows .bat helpers + the Python figure/preview generators
+tools/vendor/                         Telechips FWDN tool + VTC USB driver (checksummed) and the .fai format
+evidence/                             framebuffer captures and tool screenshots from the unit
+images/                               annotated diagrams and photo crops (regenerate with tools/make_figures*.py)
 ```
 
 | Figure | What it shows |
@@ -110,6 +117,9 @@ images/                             annotated diagrams (regenerate with tools/ma
 | ![](images/fig02-partitions.png) | the real 15-partition NAND map, reconciled to the image size |
 | ![](images/fig03-vmute-chain.png) | the `vmute` → `/dev/kwgpio` chain |
 | ![](images/fig04-boot-header.png) | Android boot header, byte offsets, repack rules |
+| ![](images/fig05-cn902-pinout.png) | CN902 pin functions, the cable wire map, why the red lead is cut |
+| ![](images/fig06-fwdn-strap.png) | the FWDN strap pads and the four rules for holding them down |
+| ![](images/fig07-fwdn-window.png) | the ~19 s boot-ROM window, and what each side should be showing |
 
 ---
 

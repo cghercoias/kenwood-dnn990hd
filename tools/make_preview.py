@@ -27,9 +27,9 @@ def inline(t):
         mm = re.match(r"^(?:\.\./)?(?:docs/|patches/|tools/)?(\d\d-[a-z0-9-]+\.md)(?:#.*)?$", href)
         if mm:
             return f'<a href="#doc:docs/{mm.group(1)}" class="doclink">{label}</a>'
-        mm = re.match(r"^(?:\.\./)?(patches|tools)/(README\.md)(?:#.*)?$", href)
+        mm = re.match(r"^(?:\.\./)?((?:patches|tools)(?:/vendor)?)/README\.md(?:#.*)?$", href)
         if mm:
-            return f'<a href="#doc:{mm.group(1)}/{mm.group(2)}" class="doclink">{label}</a>'
+            return f'<a href="#doc:{mm.group(1)}/README.md" class="doclink">{label}</a>'
         if href.startswith("#"):
             return f'<span class="anchorlink">{label}</span>'
         return f'<a href="{href}" target="_blank" rel="noopener">{label}</a>'
@@ -114,7 +114,7 @@ def main():
     for p in sorted(glob.glob(os.path.join(ROOT, "docs", "*.md"))):
         rel = "docs/" + os.path.basename(p)
         docs.append((rel, os.path.basename(p)))
-    for p in ("patches/README.md", "tools/README.md"):
+    for p in ("patches/README.md", "tools/README.md", "tools/vendor/README.md"):
         if os.path.exists(os.path.join(ROOT, p)):
             docs.append((p, p))
     sections, nav = [], []

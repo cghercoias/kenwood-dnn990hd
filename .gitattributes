@@ -7,3 +7,5 @@ patches/vmute   text eol=lf
 # Windows helpers are meant to be CRLF
 *.bat           -text
 *.png           binary
+*.jpg           binary
+*.zip           binary

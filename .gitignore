@@ -10,6 +10,10 @@
 *.apk
 *.so
 
+# ...except the two vendor tools the procedure depends on (see tools/vendor/README.md)
+!tools/vendor/Telechips_FWDN_V7_Tool_v2.30.zip
+!tools/vendor/Telechips_VTC_Driver_v5.0.0.7.zip
+
 # scratch
 __pycache__/
 *.pyc
