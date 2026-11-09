@@ -9,3 +9,4 @@ patches/vmute   text eol=lf
 *.png           binary
 *.jpg           binary
 *.zip           binary
+*.ami text eol=lf
