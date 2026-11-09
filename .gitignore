@@ -13,3 +13,6 @@
 # scratch
 __pycache__/
 *.pyc
+
+# local preview build artifact
+preview.html
