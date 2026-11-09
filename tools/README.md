@@ -53,6 +53,28 @@ Draws `fig05`–`fig07` and writes the two cropped photos (`photo-cn902-connecto
 (`ANNOTATED_CN902_front.jpg` and `FWDN_TP764.png`) in `--src`; without them the figures cannot be
 rebuilt, so the committed PNGs are the reference copies.
 
+### `build_mbr.py` — rebuild the partition map
+
+```
+python build_mbr.py -o mbr_header.bin
+python build_mbr.py -o mbr_header.bin --verify "C:/path/to/nand_dump.img"
+```
+
+Writes the 16 KiB header area (four MBR entries + `FF` fill) from the geometry in
+`../docs/06`. `--verify` compares it against the first 16 KiB of a dump and exits non-zero on any
+difference — use it before writing anything to NAND. The output for the reference unit is byte-exact
+against its chip read; see `../docs/12`.
+
+### `build_fai.py` — wrap a payload in an FWDN container
+
+```
+python build_fai.py -p mbr_header.bin --start-sector 0 --sectors 4004864 -o mbr_restore.fai
+```
+
+640-byte header + payload, with the two size pairs (`0x236`/`0x23A` and `0x270`/`0x278`) kept in
+agreement so the tool does not answer `Part Size Value is wrong!`. Field map is in the file's
+docstring and in `vendor/README.md`.
+
 ### `make_preview.py` — offline browse of every document
 
 ```bash

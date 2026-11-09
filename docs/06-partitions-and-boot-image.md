@@ -4,7 +4,10 @@
 
 The MBR in `ndda` describes three partitions. The kernel's static table describes fifteen, and that
 is the one that matters. Recovered from `/sys/class/block/nddaN/{start,size}` and cross-checked
-against the image size:
+against the image size.
+
+Both tables can be rebuilt from the numbers on this page if they are ever lost — the four MBR entries
+byte for byte — see [docs/12](12-rebuilding-the-partition-map.md).
 
 ![Partition map](../images/fig02-partitions.png)
 

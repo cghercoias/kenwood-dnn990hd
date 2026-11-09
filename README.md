@@ -105,8 +105,9 @@ docs/08-cn902-port-and-cable.md       the one port that matters: pinout, the cab
 docs/09-fwdn-mode.md                  driver, tool, strap pads, the 19-second boot-ROM window
 docs/10-nand-backup-with-fwdn.md      reading the chip through FWDN, and why never to write with it
 docs/11-documents-and-manuals.md      the PDFs worth having (part numbers + why they are not shipped)
+docs/12-rebuilding-the-partition-map.md  regenerating the 32-sector partition map (the only .fai you may need)
 patches/vmute                         the 275-byte replacement script
-tools/                                Windows .bat helpers + the Python figure/preview generators
+tools/                                .bat helpers, the FAI/MBR builders, figure + preview generators
 tools/vendor/                         Telechips FWDN tool + VTC USB driver (checksummed) and the .fai format
 evidence/                             framebuffer captures and tool screenshots from the unit
 images/                               annotated diagrams and photo crops (regenerate with tools/make_figures*.py)

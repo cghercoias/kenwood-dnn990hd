@@ -145,3 +145,7 @@ gives you a shell. FWDN remains the route of last resort, and the rules there ar
 - [docs/03](03-nand-backup-and-restore.md) — the adb-side backup and the per-partition restore, which is what actually repaired this unit.
 - [docs/09](09-fwdn-mode.md) — getting into FWDN at all.
 - `tools/nand_inspect.py` — verifies a dump: size, MBR, the 15 partitions, ext4 superblocks, boot header.
+
+One write is legitimate and this page deliberately does not perform it: restoring the 32-sector
+partition map when an area write has destroyed it. That container is rebuilt, not downloaded — see
+[docs/12](12-rebuilding-the-partition-map.md).
