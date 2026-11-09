@@ -1,0 +1,6 @@
+#!/system/bin/sh
+# Original /system/bin/vmute backed up to /data/local/tmp/vmute.orig
+# (md5 acadb8e58e5f370bd224ee7516332b49)
+# SurfaceFlinger runs this after "Boot is finished"; on this unit the
+# /dev/kwgpio video-mute ioctl kills the LCD permanently. Neutralised.
+exit 0

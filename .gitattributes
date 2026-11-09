@@ -1,0 +1,9 @@
+# the device patch MUST stay LF - a CRLF shebang breaks on Android
+patches/vmute   text eol=lf
+*.sh            text eol=lf
+*.py            text eol=lf
+*.md            text eol=lf
+*.txt           text eol=lf
+# Windows helpers are meant to be CRLF
+*.bat           -text
+*.png           binary

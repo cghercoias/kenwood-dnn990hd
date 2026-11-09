@@ -1,0 +1,15 @@
+# never commit firmware, images or dumps
+*.img
+*.bin
+*.tar
+*.tar.gz
+*.tgz
+*.zip
+*.fai
+*.kw
+*.apk
+*.so
+
+# scratch
+__pycache__/
+*.pyc
