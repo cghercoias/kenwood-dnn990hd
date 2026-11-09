@@ -71,7 +71,7 @@ Sometimes, and it is worth knowing which sometimes:
 
 | state | what 32 sectors at 0 buys you |
 |---|---|
-| MBR overwritten by a bad area write, everything else intact | **full recovery** — LK finds its partitions and boots normally |
+| MBR overwritten by a bad area write, everything else intact | **full recovery** — this exact table, written back, is what un-bricked the reference unit after a partition-scoped area write left sector 0 holding a single synthesised entry |
 | MBR intact, `/system` or `/data` broken | nothing — that is [docs/03](03-nand-backup-and-restore.md) and [docs/07](07-data-persistence-and-bootloop.md) |
 | blank chip (all `FF`) | nothing — the MBR is the *first* of several things missing, see [docs/03](03-nand-backup-and-restore.md) |
 
