@@ -164,8 +164,10 @@ Download Session - End!
 
 ![A live FWDN session](../evidence/fwdn-session-write-boot.png)
 
-The serial number in that log (`<serial>`) is the same one adb reports for this unit — that is the
-cross-check that the downloader and Android are the same box.
+The serial number the log prints on its `Device's SerialNumber` line is the same one `adb devices`
+reports for this unit — that is the cross-check that the downloader and Android are the same box. It is
+blanked out in the screenshot; yours will be different, and it is enough to identify a radio, so keep
+it to yourself.
 
 ## What to expect, and what each observation means
 

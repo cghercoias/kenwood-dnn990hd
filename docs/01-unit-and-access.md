@@ -24,9 +24,10 @@ product, and it is firmware **1.8.0**, the last release Kenwood ever made for th
 
 ![The unit's own label](../images/photo-label.jpg)
 
-*The rear label: `DNN990HD`, `12 V 6 A NEGATIVE GND`, serial **<serial>** — the same number
-`configuration.db` reports as `serial`, which is how the unit on this bench was tied to the firmware
-read out of it.*
+*The rear label: `DNN990HD`, `12 V 6 A NEGATIVE GND`, part number `Y39-6670-10`, FCC ID
+`RIXFC6000S`. The serial number and the barcode under it are masked here — on your own unit the same
+number is what `configuration.db` reports as `serial`, which is how a unit gets tied to the firmware
+read out of it. Keep yours to yourself as well; it is enough to identify a radio.*
 
 ![The NAND on the processor module](../images/photo-nand-chip.jpg)
 
