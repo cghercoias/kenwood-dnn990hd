@@ -110,6 +110,22 @@ These cost real time; they are not typos:
 
 ## What is inside the container
 
+![The processor module fitted to the main board](../images/photo-mainboard.jpg)
+
+*The processor module in place, cover and shield frame off. `X89-3140-10` / `J76-0876-12` across the
+module, the Telechips SoC at its centre with its two DDR2 devices beside it, the wide `40-11` flex on
+the right, `PUSH` and the microSD cage at the left edge. The PCB at the right of the frame (`70-10`,
+`CN101`, AN15886A) is a separate board. The pen marks on the flex and the frame are the previous
+owner's, not Kenwood's.*
+
+![The processor module on the bench](../images/photo-processor-module.jpg)
+
+*The same module off the board: `X89-3140-10` / `J76-0876-12`, `MSTAR` silkscreen, the Telechips SoC in
+the middle, two Winbond DDR2 devices (`IC502`, `IC503`), the `40-11` edge connector on the left, and
+the microSD cage marked `PUSH` at the top right.*
+
+The rest of this page is what runs on it:
+
 - `syscom.ko` / `panelcom.ko` — front panel MCU link and the LCD, **in kernel space**.
 - `kwgpio.ko`, `kwram.ko`, `kwtmcdec.ko` — GPIO access (used by `vmute`), RAM disk helpers, TMC decoder.
 - `com.jvckenwood.kwsystemservice` — holds `configuration.db` with `system_model`, `serial`,

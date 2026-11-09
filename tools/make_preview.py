@@ -19,7 +19,7 @@ def inline(t):
     t = re.sub(r"(?<![\w*])\*([^*\n]+)\*(?![\w*])", r"<em>\1</em>", t)
     # images
     t = re.sub(r"!\[([^\]]*)\]\(([^)\s]+)\)",
-               r'<img alt="\1" src="\2" loading="lazy">', t)
+               r'<img alt="\1" src="\2">', t)
     # links: other docs become in-page doc switches, anchors are dropped for local files
     def link(m):
         label, href = m.group(1), m.group(2)

@@ -31,7 +31,7 @@ from a photograph:
 | 1 | GND | black | 0 Ω to a chassis screw boss |
 | 2 | D+ | green | 0 V at power-on, ~3.0–3.3 V a few seconds later (the SoC pulls up when the gadget comes up) |
 | 3 | D− | white | 0 V unless traffic is flowing |
-| 4 | **chassis / shield bond** | *not connected* | 0 V, and grounded whenever screw #3 is fitted |
+| 4 | **chassis / shield bond — and the boot-mode net** | *not connected* | 0 Ω to chassis, **through CN903 and screw #3**; that bond has to be broken for FWDN |
 
 **Find pin 1 with the meter, not by eye.** Powered off, continuity from a chassis screw boss to each
 contact in turn: exactly one reads 0 Ω, and that is pin 1. Count 1-2-3-4 along the housing from there.
@@ -42,6 +42,30 @@ No photograph can tell you which physical end is pin 1, and getting it wrong put
 *The housing from above: four contacts in a single row, with `CN902` silkscreened immediately to its
 right. The second mark beside each contact is the pin's entry chamfer, not a second row — it is easy
 to miscount this one from a photograph, which is exactly why the pin order above came from a meter.*
+
+## Pin 4 is the boot-mode net — and it arrives already grounded
+
+Pin 4 is not just a shield tab. It is the net the SoC samples at reset to decide whether to come up in
+boot-ROM (FWDN) mode, and on this unit it is **bonded to chassis ground through two separate paths**:
+
+- **CN903**, the white header on the same board edge, and
+- **screw #3**, which ties the shield to the chassis.
+
+Broken it must be, both of them, before FWDN will engage:
+
+| until you break it | what happens |
+|---|---|
+| CN903 still plugged in | pin 4 stays at chassis ground; pulling it down changes nothing, the unit boots Android |
+| screw #3 still fitted | same thing — the shield re-grounds pin 4 through the chassis |
+| both open | the pin finally follows what you do to it, and the SoC can be made to enter boot-ROM |
+
+So the FWDN checklist on this board is not "short the pads": it is **unplug CN903, remove screw #3,
+then hold pin 4 low at power-up** — and the pads beside TP764 ([docs/09](09-fwdn-mode.md)) are the
+other end of the same net if you would rather work there.
+
+This is also the one good reason to use CN902 as the strap point: **pin 4 is reachable with the
+heatsink fitted**, while the TP764 pads are under it. The cable itself still does not carry the
+signal — you are just borrowing the access.
 
 ## The cable
 
@@ -102,7 +126,9 @@ An earlier version of this rig fed **+5 V into pin 4 through a 1 kΩ resistor**,
   USB 2.0 hub it was plugged into** (smoke, 2026-11-07).
 
 So: **never** feed 5 V into pin 4, and cut the red wire so you cannot do it by accident. The boot-mode
-selector is on the board, not in the cable — it is the pad pair in [docs/09](09-fwdn-mode.md).
+net is on pin 4 — that is *why* the resistor trick looked plausible — but it is pulled **down**, never
+up, and only after CN903 and screw #3 are out (see above). The pads in [docs/09](09-fwdn-mode.md) are
+the other end of the same net.
 
 ### Where the 1 kΩ resistor actually belongs
 

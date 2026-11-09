@@ -97,11 +97,24 @@ The selector is a **pair of pads beside the TP764 silkscreen**, between the TP76
 test-point pads, just above CN903. Of the two 2-pad footprints side by side, the **left one is bare**
 and the right one has a component fitted — the bare pair is the strap.
 
+![The pads, CN903 and the whole neighbourhood](../images/photo-fwdn-pads.jpg)
+
+*The real board: `TP762/763/764/765`, `TP770`, the pad pair under the red `1` / `2` marks, and CN903 —
+the white header just below and right of them. CN903 is not scenery: it is half the reason the strap
+does nothing until you unplug it.*
+
 ![The TP764 pads](../images/photo-fwdn-strap.jpg)
 
-*`TP764` and the pad pair, straight off the board. The red `1` / `2` marks were drawn on the photo
-afterwards — nothing on the board is labelled, which is why the figure above exists.*
+*The same pad pair close up. The red `1` / `2` marks were drawn on the photo afterwards — nothing on
+the board is labelled, which is why the figure above exists.*
 
+**Before anything else: unplug CN903 and take screw #3 out.** Pin 4 of CN902 is bonded to chassis
+ground through both, and while either is in place the boot-mode net never moves — you can hold it down
+all day and the unit still boots Android ([docs/08](08-cn902-port-and-cable.md)).
+
+- **You may not need the pads at all.** Pin 4 *is* the accessible end of this net and it sits under no
+  heatsink — with CN903 unplugged and screw #3 out, holding pin 4 low at power-up is the easier strap
+  and the one to try first.
 - **The pads are too small to solder.** A lifted pad ends the project; do not put an iron on them.
 - **Find the grounded pad first**, powered off: one pad reads ~0 Ω to chassis, the other runs to the
   SoC's boot pin. Only the signal pad has to reach ground.
@@ -113,11 +126,11 @@ afterwards — nothing on the board is labelled, which is why the figure above e
 - **The level is latched at reset.** It only has to be present when 12 V arrives; lift it as soon as
   the tool reports the device, and lift it **fully clear** — a stray short elsewhere still lands in
   boot-ROM.
-- **Screw #3 has to be out.** With it fitted, CN902 pin 4 is bonded to chassis ([docs/08](08-cn902-port-and-cable.md)).
 
-The pads sit **under the heatsink**, so a boot-ROM session costs a heatsink lift and a repaste in
-addition to the teardown. Plan the adb work ([docs/03](03-nand-backup-and-restore.md)) in the same open session, before the strap.
-A long write then runs with no heatsink and with **no thermal sensor anywhere in `/sys`** — plan airflow
+Note that a boot-ROM session used to cost a heatsink lift: the pads are under it. With pin 4 as the
+strap point that cost mostly disappears — you still take the cover off, but the heatsink can stay.
+Plan the adb work ([docs/03](03-nand-backup-and-restore.md)) in the same open session either way.
+A long write with the heatsink off runs with **no thermal sensor anywhere in `/sys`** — plan airflow
 rather than watching a temperature that does not exist.
 
 ## Part 3 — the sequence
@@ -125,12 +138,13 @@ rather than watching a temperature that does not exist.
 ```
 1  open FWDN_V7_v2.30.exe
 2  Add File -> bootloader.img   (Target column must read BOOT)
-3  fit the 1 kOhm bridge / needle on the pad pair, screw #3 out
-4  connect the CN902 cable to the PC                       (docs/08)
-5  apply 12 V (BATT + ACC + GND)
-6  within ~2 s the tool reports the device  --- operate here ---
-7  about 19 s after power-up the unit self-shuts down or watchdog-resets
-8  lift the bridge; the next power-up boots Android as usual
+3  unplug CN903, take screw #3 out                            (or pin 4 stays grounded)
+4  fit the 1 kOhm bridge on pin 4 of CN902 (or on the pad pair)
+5  connect the CN902 cable to the PC                       (docs/08)
+6  apply 12 V (BATT + ACC + GND)
+7  within ~2 s the tool reports the device  --- operate here ---
+8  about 19 s after power-up the unit self-shuts down or watchdog-resets
+9  lift the bridge; the next power-up boots Android as usual
 ```
 
 ![The 19-second window](../images/fig07-fwdn-window.png)
