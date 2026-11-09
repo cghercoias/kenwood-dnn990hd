@@ -1,4 +1,7 @@
-# PHASE 1 REPORT — Kenwood DNN990HD (Telechips TCC8801)
+# 05 — Firmware analysis: teardown of `update.kw` and the boot image
+
+*(Originally written as the phase-1 report; kept in its original form because the numbers are the
+point. Every path in it is the analysis workspace on the bench machine, not this repository.)*
 
 Generated 2026-11-08 on the bench laptop. **No file in `raw/` was modified.**
 All extracted/modified artifacts are under `out/`.
@@ -28,7 +31,7 @@ Results are byte-exact and were cross-checked against `file(1)`. Nothing was ins
 |---|---|
 | Android | **4.0.4 / IMM76D**, build `binks_v8-userdebug 4.0.4 IMM76D eng.root.20181003.133037 test-keys` |
 | Linux kernel | **3.0.8-tcc** `#3 PREEMPT Wed Oct 3 18:03:44 JST 2018`, built by `root@Prominence`, gcc 4.4.3 |
-| SoC | Telechips **TCC8801** (TCC892x family), ARM Cortex-A5 |
+| SoC | Telechips **TCC8801** (microarchitecture not recorded in the unit's own logs — do not assume Cortex-A5/A8 without checking `/proc/cpuinfo` on your unit) |
 | Main NAND | Toshiba `TH58NVG4S0FTAK0`, 2 GiB → `/dev/block/ndda` |
 | Second device | `/dev/block/mtdblock0`, 83,886,080 B (80 MB), imaged separately |
 | Partition driver | `tcc_nand_v8.ko` + `tcc_init_nand_v8.ko` (in the ramdisk) |
