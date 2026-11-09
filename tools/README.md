@@ -32,26 +32,12 @@ It never writes to the image. The partition table it carries is the one recovere
 reconciled to the image size, so a `MISMATCH` on your own dump means your dump is short, not that the
 table is wrong.
 
-### `make_figures.py` — regenerate the diagrams in `../images/`
+### Figures and photos are committed as-is
 
-```bash
-pip install pillow
-python make_figures.py
-```
-
-Pure PIL, no data files, Segoe UI from `C:\Windows\Fonts`. Every number drawn in the figures is also
-in the markdown next to them — the figures are for orientation, the text is the reference.
-
-### `make_figures_fwdn.py` — the connector / strap / timing figures
-
-```bash
-python make_figures_fwdn.py --src "S:/path/to/photos"
-```
-
-Draws `fig05`–`fig07` and writes the two cropped photos (`photo-cn902-connector.jpg`,
-`photo-fwdn-strap.jpg`) that those figures are built from. It needs the two original board photographs
-(`ANNOTATED_CN902_front.jpg` and `FWDN_TP764.png`) in `--src`; without them the figures cannot be
-rebuilt, so the committed PNGs are the reference copies.
+`../images/` holds the finished diagrams and photo crops. Nothing in this repo builds them: they were
+drawn once from the measurements in the documents and are shipped as the reference copies. Every
+number in a figure appears in the markdown beside it, so the figure is for orientation and the text is
+the authority.
 
 ### `build_mbr.py` — rebuild the partition map
 

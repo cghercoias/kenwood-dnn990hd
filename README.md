@@ -107,10 +107,10 @@ docs/10-nand-backup-with-fwdn.md      reading the chip through FWDN, and why nev
 docs/11-documents-and-manuals.md      the PDFs worth having (part numbers + why they are not shipped)
 docs/12-rebuilding-the-partition-map.md  regenerating the 32-sector partition map (the only .fai you may need)
 patches/vmute                         the 275-byte replacement script
-tools/                                .bat helpers, the FAI/MBR builders, figure + preview generators
+tools/                                .bat helpers, the FAI/MBR builders, a dump inspector, an offline preview
 tools/vendor/                         Telechips FWDN tool + VTC USB driver (checksummed) and the .fai format
 evidence/                             framebuffer captures and tool screenshots from the unit
-images/                               annotated diagrams and photo crops (regenerate with tools/make_figures*.py)
+images/                               annotated diagrams and photo crops
 ```
 
 | Figure | What it shows |
