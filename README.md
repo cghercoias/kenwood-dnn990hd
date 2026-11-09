@@ -106,6 +106,7 @@ docs/09-fwdn-mode.md                  driver, tool, strap pads, the 19-second bo
 docs/10-nand-backup-with-fwdn.md      reading the chip through FWDN, and why never to write with it
 docs/11-documents-and-manuals.md      the PDFs worth having (part numbers + why they are not shipped)
 docs/12-rebuilding-the-partition-map.md  regenerating the 32-sector partition map (the only .fai you may need)
+maps/TCC880X_NAND.ami                 the whole NAND as text: die, area, MBR, 15 partitions
 patches/vmute                         the 275-byte replacement script
 tools/                                .bat helpers, the FAI/MBR builders, a dump inspector, an offline preview
 tools/vendor/                         Telechips FWDN tool + VTC USB driver (checksummed) and the .fai format

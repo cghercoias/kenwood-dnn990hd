@@ -1,0 +1,58 @@
+# TCC880X_NAND.ami -- Telechips "NAND Data" area map for the Kenwood DNN990HD
+#
+# A text description of this unit's NAND: the die, the area the FWDN tool calls
+# "NAND Data", the four MBR entries the bootloader actually reads, and the fifteen
+# partitions the kernel's static table knows about. Nothing here is a binary --
+# tools/build_nand_layout.py turns it into a container you can hand to FWDN.
+#
+# Values recovered from /sys/class/block/nddaN/{start,size}, the MBR at sector 0,
+# and the image size; reconciled to the byte in docs/06. See docs/12 for why the
+# MBR has four entries and not fifteen.
+#
+# Syntax: [section] headers, key = value, and pipe-separated rows in the table
+# sections. '#' starts a comment. Blank lines are ignored.
+
+[chip]
+device     = TC58NVG4S0FTAK0
+vendor     = Toshiba
+package    = TSOP-48
+type       = SLC NAND, 16 Gbit
+die_bytes  = 2147483648
+page_bytes = 2048
+
+[area]
+# The area FWDN erases and writes as one unit. Its size is the sum of every
+# partition below -- that identity is what the tool validates before it writes.
+name      = NAND Data
+type      = FILESYSTEM_IMAGE
+format    = TCC FAT IMG V0.1
+sector    = 512
+disksize  = 2050490368
+
+[mbr]
+# The only partition table the bootloader parses: entry|type|start_sector|sectors.
+# Entry 0 is type 0x00 on purpose, entry 3 is a DOS extended cover with no EBR
+# chain. Do not "repair" either of them (docs/12).
+entry|type|start|sectors
+0|0x00|32|20480
+1|0x83|20512|962560
+2|0x83|983072|716800
+3|0x0f|1699872|2304992
+
+[partition]
+# name|start|sectors|filesystem|what it is
+boot|32|20480|android-boot|ndda1, boot.img, mbr type 0x00
+system|20512|962560|ext4|ndda2, read-only Android system
+data|983072|716800|ext4|ndda3, user data; the partition that does not persist
+mbr-artefact|1699872|32|none|ndda4, 16 KiB gap the MBR reserves
+cache|1699904|307232|ext4|ndda5
+recovery|2007136|20512|none|ndda6, zero fill on this build, no recovery mode exists
+reserved7|2027648|10272|none|ndda7, zero fill
+reserved8|2037920|10272|none|ndda8, zero fill
+reserved9|2048192|2080|none|ndda9, zero fill
+reserved10|2050272|2080|none|ndda10, zero fill
+hibernate|2052352|307232|none|ndda11, resume snapshot, zero fill after a wipe
+sysinfo|2359584|20512|ext4|ndda12, /.sysinfo, configuration.db lives here
+garmin|2380096|16416|fat|ndda13, .garmin; the map card is a separate microSD
+reserved14|2396512|2080|none|ndda14, zero fill
+reserved15|2398592|1606272|none|ndda15, zero fill

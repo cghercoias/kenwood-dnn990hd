@@ -39,6 +39,22 @@ drawn once from the measurements in the documents and are shipped as the referen
 number in a figure appears in the markdown beside it, so the figure is for orientation and the text is
 the authority.
 
+### `build_nand_layout.py` — the whole disk from the map
+
+```
+python build_nand_layout.py -m ../maps/TCC880X_NAND.ami --check
+python build_nand_layout.py -m ../maps/TCC880X_NAND.ami -o nand_layout.fai
+python build_nand_layout.py -m ../maps/TCC880X_NAND.ami -o nand_layout.fai --inject boot=boot.img
+```
+
+Reads `../maps/TCC880X_NAND.ami`, validates that the fifteen partitions tile the area with no gaps,
+and writes a `FILESYSTEM_IMAGE` container: the 16 KiB MBR area, then `0xFF` to the last byte. It also
+serves as the map's validator — `--check` runs the same identities FWDN does and writes nothing.
+
+`--inject NAME=FILE` drops your own image into a partition instead of fill. `--partition NAME` emits
+one partition on its own, which declares a single-entry geometry and makes the tool **rewrite sector
+0** — the script says so out loud; see `../docs/12` before using it.
+
 ### `build_mbr.py` — rebuild the partition map
 
 ```

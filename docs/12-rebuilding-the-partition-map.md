@@ -78,6 +78,47 @@ Sometimes, and it is worth knowing which sometimes:
 The failure mode this page exists for is the first row, and it is a self-inflicted one: **an FWDN area
 write can corrupt the MBR.** We hit it, which is why this file existed on the bench at all.
 
+## A whole blank disk from the map
+
+`maps/TCC880X_NAND.ami` is this unit's NAND written out as text: the die, the area the tool calls
+`NAND Data`, the four MBR entries and all fifteen partitions, with start sectors, sizes and
+filesystems. It is 2.4 KB, it diffs like prose, and it is the thing to correct if your unit turns out
+not to be a clone of this one.
+
+`tools/build_nand_layout.py` expands it — offline, no hardware, no vendor file:
+
+```bash
+python tools/build_nand_layout.py -m maps/TCC880X_NAND.ami --check        # validate + print
+python tools/build_nand_layout.py -m maps/TCC880X_NAND.ami -o nand_layout.fai
+python tools/build_nand_layout.py -m maps/TCC880X_NAND.ami -o nand_layout.fai \
+       --inject boot=boot.img --inject system=system.img
+```
+
+What the second command produces, measured:
+
+```
+2,050,491,008 bytes   =  640-byte header  +  2,050,490,368-byte payload
+header                area "NAND Data", FILESYSTEM_IMAGE, disksize 0x7A380000
+geometry              start sector 0, 4,004,864 sectors
+payload               the 16 KiB MBR area, then 0xFF to the last byte
+build time            9.5 s on a laptop
+```
+
+Two properties matter more than the numbers. **The declared geometry equals the live table**, so the
+tool does not rewrite sector 0 on its own — the failure that bricks the boot path. And **`0xFF` is the
+honest fill**: this is a layout, not a restore. Flash it onto a blank chip and you get a bootloader that
+can parse its own partition table, with nothing to mount. Real contents come from your own dump
+([docs/03](03-nand-backup-and-restore.md)); `--inject` is how you place the pieces you do have, such as
+`boot.img` extracted from your own vendor update package.
+
+The write itself is ~13 minutes over USB full speed, and it is the same
+`Add File` → Target `NAND Data` → `Start` route as everything else.
+
+**Do not use `--partition` unless you mean it.** A container that declares one partition makes the tool
+rewrite sector 0 with its own synthesised single-entry table; that is precisely the write that left a
+reference unit sitting in `18D1:D00D` fastboot with no logo. The script warns, and if you take that
+route you finish the session by writing the 32-sector repair above.
+
 ## Verify what landed
 
 Read it back before you believe it — 32 sectors from address `00000000` in `Ctrl+Shift+D`
