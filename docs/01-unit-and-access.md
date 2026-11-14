@@ -59,7 +59,7 @@ shorts against the cable shield; wiring a serial adapter there does nothing usef
 - It is **internal**: reachable with the top cover off, not with the unit assembled in the dash.
 - Every write path in these docs goes through it.
 
-There is a second, separate header (CN102) that carries a real UART — `ttyTCC0`. It was probed and
+There is a second, underneath the daughter board, separate header 20 pin (CN400) that carries a real UART — `ttyTCC0`. It was probed and
 is a **dead end for practical work**: it is alive only for ~65 ms during boot ROM + LK, before the
 kernel, and the stop-bit validity measured 41–47.9 %, i.e. the pad probed was almost certainly the
 Bluetooth UART (`ttyTCC1`), not the console. Kernel console output is available on `ttyTCC3` = GPS
